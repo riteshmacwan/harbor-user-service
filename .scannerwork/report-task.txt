@@ -1,0 +1,6 @@
+projectKey=Mass-Communication
+serverUrl=http://sonar.teamgroovy.com:9000
+serverVersion=10.5.0.89998
+dashboardUrl=http://sonar.teamgroovy.com:9000/dashboard?id=Mass-Communication
+ceTaskId=94609f8f-5b1e-4e8a-ad0d-873b6dab65a3
+ceTaskUrl=http://sonar.teamgroovy.com:9000/api/ce/task?id=94609f8f-5b1e-4e8a-ad0d-873b6dab65a3
