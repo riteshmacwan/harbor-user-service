@@ -18,7 +18,7 @@ const generateMongoDbUrl = async (): Promise<string> => {
   let MONGODB_URL = "";
   if (environment === "local") {
     // MONGODB_URL = await commonUtils.getSecret("local-db-connection-string");
-    MONGODB_URL = "mongodb://localhost:27017/testDM";
+    MONGODB_URL = "mongodb+srv://nagledarshan12:Darshan108@dan.szrelsh.mongodb.net/harbor_dev?retryWrites=true&w=majority&appName=DAN";
   } else {
     const DB_USERNAME = await commonUtils.getSecret(
       `${process.env.NODE_ENV}-DB-USERNAME`

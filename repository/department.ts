@@ -1,6 +1,9 @@
-import { connectMssqlDb } from "../config/mssql";
 import { Department } from "../models";
-import { DepartmentBody, DepartmentData, DepartmentDelete } from "../types/department";
+import {
+  DepartmentBody,
+  DepartmentData,
+  DepartmentDelete,
+} from "../types/department";
 type DepartmentCreationResult = DepartmentData | string | null;
 
 /**
@@ -19,7 +22,9 @@ export class DepartmentRepository {
    *                                          If the department with the same name already exists, it resolves with an error message.
    *                                          If an error occurs during the operation, it resolves with null.
    */
-  async createDepartment(data: DepartmentBody): Promise<DepartmentCreationResult> {
+  async createDepartment(
+    data: DepartmentBody
+  ): Promise<DepartmentCreationResult> {
     try {
       let findDepart = await Department.countDocuments({
         name: data.name,
@@ -61,11 +66,16 @@ export class DepartmentRepository {
    * @throws {Error} If an error occurs during the deletion process.
    * @description This function asynchronously deletes a department from the database based on the provided department ID. It uses the Department model to perform the deletion operation. If the department is successfully deleted, it returns a success message; otherwise, it returns a failure message indicating that the department was not found or not deleted. If an error occurs during the deletion process, it logs the error and returns null.
    */
-  async deleteDepartment(data: DepartmentDelete): Promise<DepartmentCreationResult> {
+  async deleteDepartment(
+    data: DepartmentDelete
+  ): Promise<DepartmentCreationResult> {
     try {
       const deletedDepartment = await Department.deleteOne({ _id: data._id });
 
-      if (deletedDepartment.deletedCount && deletedDepartment.deletedCount > 0) {
+      if (
+        deletedDepartment.deletedCount &&
+        deletedDepartment.deletedCount > 0
+      ) {
         return "Department deleted successfully";
       } else {
         return "Department not found or not deleted";
@@ -83,9 +93,15 @@ export class DepartmentRepository {
    * @returns {Promise<DepartmentCreationResult>} A Promise that resolves to the updated department data or a descriptive error message.
    * @throws {Error} Throws an error if there's an issue updating the department.
    */
-  async updateDepartment(data: DepartmentData): Promise<DepartmentCreationResult> {
+  async updateDepartment(
+    data: DepartmentData
+  ): Promise<DepartmentCreationResult> {
     try {
-      const updatedDepartment = (await Department.findByIdAndUpdate(data._id, data, { new: true })) as DepartmentData;
+      const updatedDepartment = (await Department.findByIdAndUpdate(
+        data._id,
+        data,
+        { new: true }
+      )) as DepartmentData;
 
       if (updatedDepartment) {
         return updatedDepartment;

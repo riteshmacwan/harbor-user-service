@@ -1,5 +1,9 @@
 import { DepartmentRepository } from "../repository";
-import { DepartmentBody, DepartmentData, DepartmentDelete } from "../types/department";
+import {
+  DepartmentBody,
+  DepartmentData,
+  DepartmentDelete,
+} from "../types/department";
 
 /**
  * Service class for managing departments.
