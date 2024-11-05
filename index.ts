@@ -67,7 +67,7 @@ app.use(cors());
 app.options("*", cors());
 
 // Health Check Route
-app.get("/mass-com/health-check", (req, res) => {
+app.get("/user/health-check", (req, res) => {
   res.status(200).json({ health: "okay" });
 });
 
@@ -129,11 +129,11 @@ app.use(
 
 connectMongoDb();
 
-app.use("/mass-com", router());
+app.use("/user", router());
 
 app.use("/", async (req: Request, res: Response) => {
   return res.json({
-    message: "Welcome to Com Module Mass Communication Service",
+    message: "Welcome to Harbor User Service",
   });
 });
 
