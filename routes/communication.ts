@@ -83,7 +83,11 @@ export default (router: Router) => {
    *               items:
    *                 $ref: '#/components/schemas/Mass Communication'
    */
-  router.get("/get-sender-email", verifyToken, communicationController.getSenderEmail);
+  router.get(
+    "/get-sender-email",
+    verifyToken,
+    communicationController.getSenderEmail
+  );
   /**
    * @swagger
    * /get-sender-phone:
@@ -124,8 +128,20 @@ export default (router: Router) => {
    *               items:
    *                 $ref: '#/components/schemas/Mass Communication'
    */
-  router.post("/communication", verifyToken, communicationCreate, validation, communicationController.create);
-  router.post("/communication-load-test", verifyToken, communicationCreate, validation, communicationController.loadTestCreate);
+  router.post(
+    "/communication",
+    verifyToken,
+    communicationCreate,
+    validation,
+    communicationController.create
+  );
+  router.post(
+    "/communication-load-test",
+    verifyToken,
+    communicationCreate,
+    validation,
+    communicationController.loadTestCreate
+  );
 
   /**
    * @swagger
@@ -173,7 +189,11 @@ export default (router: Router) => {
    *       500:
    *         description: Internal server error
    */
-  router.post("/communication/duplicate/:id", verifyToken, communicationController.duplicate);
+  router.post(
+    "/communication/duplicate/:id",
+    verifyToken,
+    communicationController.duplicate
+  );
 
   /**
    * @swagger
@@ -221,7 +241,10 @@ export default (router: Router) => {
    *       500:
    *         description: Internal server error
    */
-  router.post("/communication/active/:id", communicationController.activeInactive);
+  router.post(
+    "/communication/active/:id",
+    communicationController.activeInactive
+  );
 
   /**
    * @swagger
@@ -262,8 +285,15 @@ export default (router: Router) => {
    *     500:
    *       description: Internal server error
    */
-  router.post("/communication/change-status", verifyToken, communicationController.changeStatus);
-  router.post("/communication/patient-status-webhook", communicationController.patientStatusWebhook);
+  router.post(
+    "/communication/change-status",
+    verifyToken,
+    communicationController.changeStatus
+  );
+  router.post(
+    "/communication/patient-status-webhook",
+    communicationController.patientStatusWebhook
+  );
 
   /**
    * @swagger
@@ -332,8 +362,19 @@ export default (router: Router) => {
    *     500:
    *       description: Internal server error
    */
-  router.post("/send-email", verifyToken, sendMailValidation, validation, communicationController.sendContent);
-  router.post("/update-hashtag", verifyToken, validation, communicationController.updateHashtags);
+  router.post(
+    "/send-email",
+    verifyToken,
+    sendMailValidation,
+    validation,
+    communicationController.sendContent
+  );
+  router.post(
+    "/update-hashtag",
+    verifyToken,
+    validation,
+    communicationController.updateHashtags
+  );
 
   /**
    * @swagger
@@ -384,8 +425,18 @@ export default (router: Router) => {
    *     500:
    *       description: Internal server error
    */
-  router.post("/send-sms", verifyToken, sendSMSValidation, validation, communicationController.sendContent);
-  router.post("/send-test-sms", verifyToken,communicationController.sendTestContent);
+  router.post(
+    "/send-sms",
+    verifyToken,
+    sendSMSValidation,
+    validation,
+    communicationController.sendContent
+  );
+  router.post(
+    "/send-test-sms",
+    verifyToken,
+    communicationController.sendTestContent
+  );
 
   /**
    * @swagger
@@ -443,8 +494,24 @@ export default (router: Router) => {
    *     500:
    *       description: Internal server error
    */
-  router.post("/reply-email", verifyToken, sendReplyMailValidation, validation, communicationController.sendContent);
-  router.post("/upload-image", verifyToken, uploadImageValidation, validation, communicationController.uploadImage);
+  router.post(
+    "/reply-email",
+    verifyToken,
+    sendReplyMailValidation,
+    validation,
+    communicationController.sendContent
+  );
+  router.post(
+    "/upload-image",
+    verifyToken,
+    uploadImageValidation,
+    validation,
+    communicationController.uploadImage
+  );
   router.get("/test-api", verifyToken, communicationController.testApi);
-  router.post("/test-tiny-mce", verifyToken, communicationController.testTinyMce);
+  router.post(
+    "/test-tiny-mce",
+    verifyToken,
+    communicationController.testTinyMce
+  );
 };

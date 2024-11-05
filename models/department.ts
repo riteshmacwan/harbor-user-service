@@ -23,4 +23,7 @@ const DepartmentSchema: Schema<IDepartment> = new Schema<IDepartment>(
   }
 );
 
-export const Department: Model<IDepartment> = model<IDepartment>("Department", DepartmentSchema);
+export const Department: Model<IDepartment> = model<IDepartment>(
+  "Department",
+  DepartmentSchema
+);
