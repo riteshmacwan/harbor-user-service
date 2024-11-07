@@ -1,6 +1,8 @@
 import { Document, model, Model, Schema } from "mongoose";
 import { userBody } from "../types/user";
-
+/**
+ * Interface representing a user document.
+ */
 type IUser = userBody & Document;
 
 const UserSchema: Schema<IUser> = new Schema<IUser>(
@@ -69,6 +71,14 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
       required: true,
     },
     plan_id: {
+      required: true,
+      type: String,
+    },
+    level: {
+      required: true,
+      type: Number,
+    },
+    language: {
       required: true,
       type: String,
     },

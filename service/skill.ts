@@ -1,5 +1,9 @@
 import { SkillRepository } from "../repository/skill";
-
+import { SkillData } from "../types/skill";
+/**
+ * Service class for managing skills.
+ * @class - SkillService
+ */
 export class SkillService {
   private skillRepository: SkillRepository;
 
@@ -18,7 +22,7 @@ export class SkillService {
    * @async
    * @returns {Promise<SkillData[] | null>} A promise that resolves to an array of SkillData objects if successful, or null if an error occurs.
    */
-  async listSkill() {
+  async listSkill(): Promise<SkillData[] | null> {
     return await this.skillRepository.listSkill();
   }
 }

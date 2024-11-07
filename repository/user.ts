@@ -1,6 +1,10 @@
 import { User } from "../models/user";
 import { UserData } from "../types/user";
-
+/**
+ * Represents a repository for managing users.
+ * This class provides methods to perform CRUD (Create, Read, Update, Delete) operations on user data.
+ * @class - UserRepository
+ */
 export class UserRepository {
   /**
    * Asynchronously updates a User document by its ID with the provided data.
