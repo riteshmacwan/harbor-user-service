@@ -16,4 +16,7 @@ export class UserService {
   async updateUser(user_id: string, profileData: object) {
     return await this.userRepository.updateUser(user_id, profileData);
   }
+  async getOneUser() {
+    return await this.userRepository.getOneUser();
+  }
 }

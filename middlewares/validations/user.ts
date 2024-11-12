@@ -8,9 +8,12 @@ export const userValidation: ValidationChain[] = [
 
   check("phone_number")
     .optional()
+    .isLength({ min: 10, max: 10 })
+    .withMessage("Phone number must have 10 digits")
     .isString()
-    .withMessage("Phone number must be a string"),
-
+    .withMessage("Phone number must be a string")
+    .isNumeric()
+    .withMessage("Phone number must be numeric"),
   check("apple_id")
     .optional()
     .isString()
@@ -22,7 +25,8 @@ export const userValidation: ValidationChain[] = [
     .withMessage("Google ID must be a string"),
 
   check("first_name")
-    .exists({ checkFalsy: true })
+    .trim()
+    .notEmpty()
     .withMessage("First name is required")
     .isString()
     .withMessage("First name must be a string"),

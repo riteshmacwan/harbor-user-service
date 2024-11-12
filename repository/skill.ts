@@ -9,7 +9,6 @@ type SkillCreattionResult = SkillData | string | null;
  * @class - SkillRepository
  */
 export class SkillRepository {
- 
   /**
    * Retrieves a list of skills asynchronously from the database.
    *
@@ -22,7 +21,40 @@ export class SkillRepository {
       let data = (await Skill.find()) as SkillData[];
       return data;
     } catch (error) {
-      console.log("createAuditlog error -->", error);
+      console.log("SkillRepository -> listSkill error -->", error);
+      return null;
+    }
+  }
+  async addNewSkills(skills: any[]): Promise<any> {
+    try {
+      // Extract the unique skill names to avoid checking them multiple times
+      const skillNames = skills.map((skill: any) => skill.name);
+
+      // Find existing skills in bulk using `in` query
+      const existingSkills = await Skill.find({ name: { $in: skillNames } });
+
+      // Map existing skills for quick lookup
+      const existingSkillsMap = new Set(
+        existingSkills.map((skill) => skill.name)
+      );
+
+      // Filter out skills that already exist
+      const newSkills = skills.filter(
+        (skill: any) => !existingSkillsMap.has(skill.name)
+      );
+
+      // If there are no new skills, we can return early
+      if (newSkills.length === 0) {
+        console.log("No new skills to add.");
+        return [];
+      }
+
+      // Insert only the new skills into the database
+      const addedSkills = await Skill.insertMany(newSkills);
+
+      return addedSkills;
+    } catch (error) {
+      console.log("SkillRepository -> addNewSkills error -->", error);
       return null;
     }
   }

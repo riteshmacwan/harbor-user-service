@@ -1,6 +1,5 @@
 import appInsightsUtils from "./utils/appInsightsUtils";
 import express, { Express, Request, Response, NextFunction } from "express";
-import { ObjectId } from "mongodb";
 import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
@@ -15,7 +14,6 @@ import "reflect-metadata";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerDocument from "./swagger.json";
-import { ProcessCommunicationService } from "./service";
 import {
   CommunicationStatus,
   CommunicationType,
@@ -44,7 +42,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/docs", express.static(path.join(__dirname, "docs")));
 
 const specs = swaggerJsDoc(swaggerDocument);
-app.use("/mass-com/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+app.use("/user-svc/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 // disable `X-Powered-By` header that reveals information about the server
 app.disable("x-powered-by");
@@ -67,7 +65,7 @@ app.use(cors());
 app.options("*", cors());
 
 // Health Check Route
-app.get("/user/health-check", (req, res) => {
+app.get("/user-svc/health-check", (req, res) => {
   res.status(200).json({ health: "okay" });
 });
 
@@ -129,7 +127,7 @@ app.use(
 
 connectMongoDb();
 
-app.use("/user", router());
+app.use("/user-svc", router());
 
 app.use("/", async (req: Request, res: Response) => {
   return res.json({

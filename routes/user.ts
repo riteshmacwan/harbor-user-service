@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UserController } from "../controllers";
 import { userValidation } from "../middlewares/validations/user";
 import { validation } from "../middlewares/validations/communication";
-
+import { upload } from "../config/multer";
 const userController = new UserController();
 
 /**
@@ -64,6 +64,11 @@ export default (router: Router) => {
     "/update-user",
     userValidation,
     validation,
+    upload.fields([
+      { name: "profile_photo", maxCount: 1 },
+      { name: "cv", maxCount: 1 },
+      { name: "licenses", maxCount: 6 },
+    ]),
     userController.updateUser
   );
 };

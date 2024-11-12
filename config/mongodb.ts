@@ -18,7 +18,8 @@ const generateMongoDbUrl = async (): Promise<string> => {
   let MONGODB_URL = "";
   if (environment === "local") {
     // MONGODB_URL = await commonUtils.getSecret("local-db-connection-string");
-    MONGODB_URL = "mongodb+srv://nagledarshan12:Darshan108@dan.szrelsh.mongodb.net/harbor_dev?retryWrites=true&w=majority&appName=DAN";
+    MONGODB_URL =
+      process.env.MONGODB_URL ?? "mongodb://127.0.0.1:27017/harbor_dev";
   } else {
     const DB_USERNAME = await commonUtils.getSecret(
       `${process.env.NODE_ENV}-DB-USERNAME`
@@ -51,17 +52,21 @@ const generateMongoDbUrl = async (): Promise<string> => {
 const connectMongoDb = async (): Promise<void> => {
   try {
     let MONGODB_URL;
+
     if (process.env.NODE_ENV === "test") {
       mongoServer = await MongoMemoryServer.create();
       MONGODB_URL = mongoServer.getUri();
     } else {
       MONGODB_URL = await generateMongoDbUrl();
+      console.log("🚀 ~ connectMongoDb ~ MONGODB_URL:", MONGODB_URL);
     }
     await mongoose.connect(MONGODB_URL);
 
     // Log successful connection
     console.log("Mongodb connected successfully.");
   } catch (error) {
+    console.log("🚀 ~ connectMongoDb ~ error:", error);
+
     console.error(`MongoDB Connection Error: ${error}`);
   }
 };

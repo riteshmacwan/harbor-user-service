@@ -1,4 +1,5 @@
 import { User } from "../models/user";
+import user from "../routes/user";
 import { UserData } from "../types/user";
 /**
  * Represents a repository for managing users.
@@ -18,16 +19,36 @@ export class UserRepository {
   async updateUser(user_id: string, profileData: object) {
     try {
       let result = (await User.findByIdAndUpdate(
-        user_id,
+        user_id.toString(),
         profileData
       )) as UserData;
       if (result) {
-        return result;
+        return {
+          status: true,
+          message: "User updated successfully",
+          data: result,
+        };
       } else {
-        return "User not found or not updated";
+        return {
+          status: false,
+          message: "User not found or not updated",
+        };
       }
     } catch (error) {
-      return null;
+      console.log("UserRepository/updateUser error -->", error);
+      return {
+        status: false,
+        message: "something went wrong",
+        error,
+      };
+    }
+  }
+  async getOneUser() {
+    try {
+      const user = await User.findOne();
+      return user;
+    } catch (error) {
+      console.log("UserRepository/getOneUser error -->", error);
     }
   }
 }

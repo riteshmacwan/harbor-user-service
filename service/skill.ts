@@ -25,4 +25,7 @@ export class SkillService {
   async listSkill(): Promise<SkillData[] | null> {
     return await this.skillRepository.listSkill();
   }
+  async addNewSkills(skills: any[]): Promise<any> {
+    return await this.skillRepository.addNewSkills(skills);
+  }
 }
