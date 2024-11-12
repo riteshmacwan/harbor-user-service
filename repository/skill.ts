@@ -45,7 +45,6 @@ export class SkillRepository {
 
       // If there are no new skills, we can return early
       if (newSkills.length === 0) {
-        console.log("No new skills to add.");
         return [];
       }
 

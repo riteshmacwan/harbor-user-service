@@ -58,10 +58,10 @@ export const userValidation: ValidationChain[] = [
     .withMessage("Company must be a string"),
 
   check("birth_date")
-    .exists({ checkFalsy: true })
+    .notEmpty()
     .withMessage("Birth date is required")
-    .isString()
-    .withMessage("Birth date must be a string (consider using a date format)"),
+    .isDate({ format: "MM/DD/YYYY" })
+    .withMessage("Invalid birth date format, expected MM/DD/YYYY"),
 
   check("gender")
     .exists({ checkFalsy: true })
@@ -105,7 +105,7 @@ export const userValidation: ValidationChain[] = [
     .isInt({ min: 1 })
     .withMessage("Level must be a positive integer"),
   check("language")
-    .exists({ checkFalsy: true })
+    .exists()
     .withMessage("Language is required")
     .custom((value) => {
       const validLanguages = ["English", "Spanish"];
@@ -115,3 +115,31 @@ export const userValidation: ValidationChain[] = [
       return true;
     }),
 ];
+
+/**
+ * Validates the request parameters using express-validator and sends an error response if validation fails.
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @param {import('express').NextFunction} next - The Express next function.
+ * @returns {import('express').Response | void} Returns a JSON response with error details if validation fails, otherwise passes control to the next middleware.
+ */
+export const validation = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | void => {
+  let error: string[] = [];
+  const result: ValidationResultItem[] = validationResult(req.body).array();
+  if (!result.length) return next();
+
+  result.forEach((validationResultItem) => {
+    error.push(validationResultItem.msg);
+  });
+
+  return res.json({
+    status: false,
+    message: error ? error[0] : "",
+    data: {},
+    code: 400,
+  });
+};

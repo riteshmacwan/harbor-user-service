@@ -2,9 +2,9 @@ import { UserController } from "../../controllers";
 import request from "supertest";
 import app from "../..";
 let userController: UserController = new UserController();
-import { UserBody, UserData } from "../../types/user";
 import { UserService } from "../../service";
 let userService: UserService = new UserService();
+jest.setTimeout(10000);
 describe("UserController", () => {
   describe("[POST] :  /update-user", () => {
     it("should update a user's profile data and respond with 200", async () => {
@@ -29,13 +29,13 @@ describe("UserController", () => {
       };
 
       const response = await request(app)
-        .put("/mass-com/update-user")
+        .put("/user-svc/update-user")
         .send(userData);
       expect(response.status).toBe(200);
     });
     it("should respond with an error when user_id is not provided", async () => {
-      const userData: UserData = {
-        user_id: "67289b424365e8569fbe6fb",
+      const userData: any = {
+        // user_id: "67289b424365e8569fbe6fb",
         first_name: "user_fn",
         last_name: "user_ln",
         email: "user@gmail.com",
@@ -53,6 +53,11 @@ describe("UserController", () => {
         language: "English",
         draft_page_no: 1,
       };
+      const response = await request(app)
+      .put("/mass-com/update-user")
+      .send(userData);
+    expect(response.status).toBe(400);
+  
     });
   });
 });
