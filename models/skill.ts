@@ -12,6 +12,11 @@ const SkillSchema = new Schema<ISkill>(
       type: String,
       required: true,
     },
+    is_published: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

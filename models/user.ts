@@ -1,7 +1,9 @@
 import { Document, model, Model, Schema } from "mongoose";
-import { userBody } from "../types/user";
-
-type IUser = userBody & Document;
+import { UserBody } from "../types/user";
+/**
+ * Interface representing a user document.
+ */
+type IUser = UserBody & Document;
 
 const UserSchema: Schema<IUser> = new Schema<IUser>(
   {
@@ -33,6 +35,10 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
       required: true,
       type: Boolean,
       default: false,
+    },
+    profile_photo: {
+      required: false,
+      type: String,
     },
     cv: {
       required: false,
@@ -71,6 +77,20 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
     plan_id: {
       required: true,
       type: String,
+    },
+    level: {
+      required: true,
+      type: Number,
+      default: 1,
+    },
+    language: {
+      required: true,
+      type: String,
+      enum: ["English", "Spanish"],
+    },
+    draft_page_no: {
+      required: false,
+      type: Number,
     },
   },
   {

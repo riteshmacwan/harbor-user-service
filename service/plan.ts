@@ -1,6 +1,9 @@
 import { Plan } from "../models";
 import { PlanData } from "../types/plan";
-
+/**
+ * Service class for managing plans.
+ * @class - PlanService
+ */
 export class PlanService {
   /**
    * Retrieves a list of plans asynchronously from the database.

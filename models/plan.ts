@@ -1,6 +1,8 @@
 import { Document, Model, model, Schema } from "mongoose";
 import { PlanBody } from "../types/plan";
-
+/**
+ * Interface representing a plan document.
+ */
 type IPlan = PlanBody & Document;
 const PlanSchema: Schema<IPlan> = new Schema<IPlan>(
   {
